@@ -21,19 +21,22 @@ sources:
     #
     # 6. Commit the changes.
     #
-    # ruleData:
-    #   test_result_sigstore_opts:
-    #     ignore_rekor: true
-    #     public_key: |
-    #       REPLACE_ME
-    #     certificate_identity: ''
-    #     certificate_identity_regexp: ''
-    #     certificate_oidc_issuer: ''
-    #     certificate_oidc_issuer_regexp: ''
-    #     rekor_url: ''
+    ruleData:
+      test_result_sigstore_opts:
+        ignore_rekor: true
+        public_key: |
+          -----BEGIN PUBLIC KEY-----
+          MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9FoPetfgQ75pam/ShlqveQhF5t0t
+          1ogdyinaRFUYqOnORv4l5sZFCQYl6rDH+V8F8EDvysSd3TrjxjdYcD0Ciw==
+          -----END PUBLIC KEY-----
+        certificate_identity: ''
+        certificate_identity_regexp: ''
+        certificate_oidc_issuer: ''
+        certificate_oidc_issuer_regexp: ''
+        rekor_url: ''
     config:
       include:
         - '@slsa3'
-        # - test_results
+        - test_results
       exclude:
         - slsa_source_correlated
