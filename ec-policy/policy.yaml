@@ -1,0 +1,39 @@
+sources:
+  - policy:
+      - github.com/lcarva/ec-policies//policy/lib?ref=test-results-att
+      - github.com/lcarva/ec-policies//policy/release?ref=test-results-att
+    # To enable the test result checks, a few steps are required:
+    #
+    # 1. Create the required signing key-pair, e.g.:
+    #    cosign generate-key-pair k8s://tssc-app-ci/test-signing
+    #    (`tssc-app-ci` is where the CI for this git repo will run)
+    #
+    # 2. Grab the public key from the generate secret:
+    #    oc -n tssc-app-ci get secret test-signing -o yaml | yq '.data["cosign.pub"] | @base64d'
+    #
+    # 3. Add the value to the `public_key` attribute below, replacing the `REPLACE_ME` text.
+    #
+    # 4. Remove the leading comment character, `# `, from the `ruleData` attribute below, including
+    #    its nested attributes.
+    #
+    # 5. Remove the leading comment character, `# `, from the `test_results` entry of the
+    #    `config.include` list below.
+    #
+    # 6. Commit the changes.
+    #
+    # ruleData:
+    #   test_result_sigstore_opts:
+    #     ignore_rekor: true
+    #     public_key: |
+    #       REPLACE_ME
+    #     certificate_identity: ''
+    #     certificate_identity_regexp: ''
+    #     certificate_oidc_issuer: ''
+    #     certificate_oidc_issuer_regexp: ''
+    #     rekor_url: ''
+    config:
+      include:
+        - '@slsa3'
+        # - test_results
+      exclude:
+        - slsa_source_correlated
